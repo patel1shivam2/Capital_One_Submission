@@ -1,0 +1,173 @@
+.search-box
+{
+    min-height: 100%;
+    max-height: 100%;
+}
+.formEntry
+{
+    position: absolute;
+    top: 8%;
+    left: 0px;
+    right: 0px;
+    width: 100%;
+    max-width: 100%;
+    height: 20%;
+    max-height: 20%;
+}
+
+#yelp_image
+{
+    position: absolute;
+    top: 10%;
+    left: 0;
+    height: 80%;
+    width: 100%;
+}
+
+#formImage
+{
+    position: absolute;
+    float: left;
+    height: 100%;
+    width: 18%;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#leftForm
+{
+    vertical-align: middle;
+    position: absolute;
+    left: 18%;
+    width: 30%;
+    height: 100%;
+    min-height: 100%;
+    padding-left: 3px;
+    padding-right: 3px;
+    float: left;
+}
+
+#rightForm
+{
+    position: absolute;
+    left: 50%;
+    height: 100%;
+}
+
+#mapArea
+{
+    position: absolute;
+    top: 28%;
+    bottom: 0%;
+    width: 60%;
+    max-width: 60%;
+}
+
+#resultsArea
+{
+    position: absolute;
+    top: 28%;
+    bottom: 0%;
+    left: 60%;
+    width: 40%;
+    max-width: 40%;
+}
+
+.textEntry
+{
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+#subBut
+{
+    position: absolute;
+    right: 1%;
+    bottom: 1%;
+}
+
+.textEntry
+{
+    height: 33%;
+    width: 100%;
+    position: absolute;
+    top: 0%;
+}
+
+#term
+{
+    padding-top: 1%;
+    position: absolute;
+    top: 0px;
+}
+
+#zip
+{
+    position: absolute;
+    top: 33%;
+}
+
+#radNLim
+{
+    position: absolute;
+    top: 67%;
+    padding-bottom: 1%;
+}
+
+#preBoxText
+{
+    position: absolute;
+    left: 0%;
+    height: 100%;
+    width: 20%;
+    font-family: Sans-serif;
+}
+
+#biggerBox
+{
+    position: absolute;
+    left: 0%;
+    height: 100%;
+    width: 75%;
+    font-family: Sans-serif;
+}
+
+#sch
+{
+    position: absolute;
+    right: 0%;
+    height: 100%;
+    width: 80%;
+}
+
+#smallerSch
+{
+    position: absolute;
+    right: 0%;
+    height: 100%;
+    width: 30%;
+}
+
+#radius
+{
+    width: 30%;
+    left: 0%;
+    height: 100%;
+}
+
+#lim
+{
+    width: 70%;
+    right: 0%;
+    height: 100%;
+}
+
+input[type=text]
+{
+    width: 100%;
+}
+
+input[type=number]
+{
+    width: 100%;
+}
