@@ -44,8 +44,7 @@ def performSearch():
         url = 'https://api.yelp.com/v3/businesses/search'
         headers = {'Authorization': 'bearer %s' % access_token}
         resp = requests.get(url=url, params=userInfo, headers=headers)
-        pprint.pprint(resp.json()['businesses'])
-        return(jsonify(resp))
+        print(resp.json()['businesses'])
     return ('', 204)
 
 if __name__ == '__main__':
