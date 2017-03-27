@@ -4,6 +4,9 @@
 # untitled.py: 1
 Flask == 0.12
 
+# untitled.py: 2
+django-frontdata == 1.0.1
+
 # lib/python3.5/rlcompleter.py: 34
 # my_project/lib/python3.5/rlcompleter.py: 34
 # untitled/lib/python3.5/rlcompleter.py: 34
