@@ -15,20 +15,15 @@ def second():
 
 @app.route('/application.html', methods=['POST'])
 def performSearch():
-    term = request.form['searchTerm']
-    loc = request.form['location']
-    rad = 1609 * request.form['radius']
-    lim = request.form['limit']
-    deal = request.form['deals']
 
     userInfo = {
-        'term': term,
+        'term': request.form.get('term'),
         'location': loc,
         'radius_filter': rad,
         'limit': lim,
         'deals_filter': deal
     }
-    
+
     app_id = 'H-HZgNDkCrVwWodMt-n8KA'
     app_secret = '5BXCx3WWi0uIhjPy6s1DehHasBxYnTgbFSnoDv210B656x7uMmUiy8JSGrmNp9mX'
     data = {'grant_type': 'client_credentials',

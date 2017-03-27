@@ -67,36 +67,36 @@
                 <img id="yelp_image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Yelp_Logo.svg/1280px-Yelp_Logo.svg.png"/>
             </div>
             <div id="form">
-                <form action="{{ url_for('performSearch') }}" method="POST" class="search-box">
+                <form role="form" method="POST" class="search-box" onsubmit="return false">
                     <div id="leftForm">
                         <div id="term" class="textEntry">
                             <div id="preBoxText"><p>Cuisine:</p></div>
-                            <div id ="sch"><input type="text" name="searchTerm" placeholder="Mexican or Chipotle" required></div>
+                            <div id ="sch"><input id="searchTerm" type="text" name="searchTerm" placeholder="Mexican or Chipotle" required></div>
                         </div>
                         <div id="zip" class="textEntry">
                             <div id="preBoxText"><span><p>Location:</p></span></div>
-                            <div id ="sch"><input type="text" name="location" placeholder="My Address, Chicago, IL, 60600" required> </div>
+                            <div id ="sch"><input id="location" type="text" name="location" placeholder="My Address, Chicago, IL, 60600" required> </div>
                         </div>
                         <div id="radNLim" class="textEntry">
                             <div id="radius" class="textEntry">
                                 <div id="biggerBox"><span><p>Radius (mi):</p></span></div> 
-                                <div id ="smallerSch"><input id="numSearch" type="number" name="radius" placeholder="4"> </div>
+                                <div id ="smallerSch"><input id="rad" type="number" name="radius" placeholder="4"> </div>
                             </div>
                             <div id="lim" class="textEntry">
                                 <div id="biggerBox"><span><p>Max Number of Businesses:</p></span></div> 
-                                <div id ="smallerSch"><input id="numSearch" type="number" name="limit" placeholder="10"></div>
+                                <div id ="smallerSch"><input id="maxNum" type="number" name="limit" placeholder="10"></div>
                             </div>
                         </div>
                     </div>
                     <div id="rightForm">
                       <div id="deals">
                         <h5>Do you prefer locations offering discounts?</h5>
-                        <input type="radio" name="deals" value="true" checked> I'm a College Student! Of course I want deals!<br>
-                        <input type="radio" name="deals" value="true"> I love some discounts!<br>
-                        <input type="radio" name="deals" value="false"> No, I'm in the mood to splurge<br>
+                        <input id="radio1" type="radio" name="deals" value="true" checked> I'm a College Student! Of course I want deals!<br>
+                        <input id="radio2" type="radio" name="deals" value="true"> I love some discounts!<br>
+                        <input id="radio3" type="radio" name="deals" value="false"> No, I'm in the mood to splurge<br>
                       </div>
                     </div>
-                    <input id="subBut" type="submit" value="Yelp It!">
+                    <input id="subBut" type="submit" onclick="collectData()" value="Yelp It!">
                 </form>
             </div>
         </div>
@@ -114,6 +114,7 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="static/js/bootstrap.js"></script>
+    <script src="static/js/userDefined.js"></script>
     <script>
     function initMap() {
         var map = new google.maps.Map(document.getElementById('mapArea'), {
@@ -141,6 +142,33 @@
       }
       function handleLocationError(browserHasGeolocation, pos) {
       }
+
+      function collectData() {
+            var term = document.getElementById('searchTerm').value;
+            var location = document.getElementById('location').value;
+            var radius = document.getElementById('rad').value;
+            var maxNum = document.getElementById('maxNum').value;
+            var deal;
+            if(document.getElementById('radio1').value)
+                deal = true;
+            if(document.getElementById('radio2').value)
+                deal = true;
+            if(document.getElementById('radio1').value)
+                deal = false;
+
+
+          $.ajax({
+              type: "POST",
+              url: "/application.html",
+              data: {
+                  'term': term,
+                  'location': location,
+                  'radius_filter': radius,
+                  'limit': maxNum,
+                  'deals_filter': deal
+              }
+          })
+        }
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBztrjTHwmnh-fmPw8WGMqDpOioJDpUuGA&callback=initMap">
