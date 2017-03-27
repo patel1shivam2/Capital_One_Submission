@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-import os, requests, pprint
+import os, requests, pprint, jsonify
 
 app = Flask(__name__)
 
@@ -16,25 +16,36 @@ def second():
 @app.route('/application.html', methods=['POST'])
 def performSearch():
 
-    userInfo = {
-        'term': request.form.get('term'),
-        'location': loc,
-        'radius_filter': rad,
-        'limit': lim,
-        'deals_filter': deal
-    }
+    if(request.method=='POST'):
 
-    app_id = 'H-HZgNDkCrVwWodMt-n8KA'
-    app_secret = '5BXCx3WWi0uIhjPy6s1DehHasBxYnTgbFSnoDv210B656x7uMmUiy8JSGrmNp9mX'
-    data = {'grant_type': 'client_credentials',
-            'client_id': app_id,
-            'client_secret': app_secret}
-    token = requests.post('https://api.yelp.com/oauth2/token', data=data)
-    access_token = token.json()['access_token']
-    url = 'https://api.yelp.com/v3/businesses/search'
-    headers = {'Authorization': 'bearer %s' % access_token}
-    resp = requests.get(url=url, params=userInfo, headers=headers)
-    pprint.pprint(resp.json()['businesses'])
+        term = request.form['term']
+        loc = request.form['location']
+        rad = request.form['radius_filter']
+        lim = request.form['limit']
+        deal = request.form['deals_filter']
+
+        userInfo = {
+            'term': term,
+            'location': loc,
+            'radius_filter': rad,
+            'limit': lim,
+            'deals_filter': deal
+        }
+
+        print(userInfo)
+
+        app_id = 'H-HZgNDkCrVwWodMt-n8KA'
+        app_secret = '5BXCx3WWi0uIhjPy6s1DehHasBxYnTgbFSnoDv210B656x7uMmUiy8JSGrmNp9mX'
+        data = {'grant_type': 'client_credentials',
+                'client_id': app_id,
+                'client_secret': app_secret}
+        token = requests.post('https://api.yelp.com/oauth2/token', data=data)
+        access_token = token.json()['access_token']
+        url = 'https://api.yelp.com/v3/businesses/search'
+        headers = {'Authorization': 'bearer %s' % access_token}
+        resp = requests.get(url=url, params=userInfo, headers=headers)
+        pprint.pprint(resp.json()['businesses'])
+        return(jsonify(resp))
     return ('', 204)
 
 if __name__ == '__main__':
