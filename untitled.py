@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-import requests, pprint
+import os, requests, pprint
 
 app = Flask(__name__)
 
@@ -43,4 +43,5 @@ def performSearch():
     return ('', 204)
 
 if __name__ == '__main__':
-    app.run()
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
