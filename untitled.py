@@ -13,22 +13,22 @@ def hello_world():
 def second():
     return render_template('application.html')
 
-@app.route('/application.html',methods=['POST'])
+@app.route('/application.html', methods=['POST'])
 def performSearch():
     term = request.form['searchTerm']
-    zipCode = request.form['zipCode']
+    loc = request.form['location']
     rad = 1609 * request.form['radius']
     lim = request.form['limit']
     deal = request.form['deals']
 
     userInfo = {
         'term': term,
-        'location': zipCode,
+        'location': loc,
         'radius_filter': rad,
         'limit': lim,
         'deals_filter': deal
     }
-
+    
     app_id = 'H-HZgNDkCrVwWodMt-n8KA'
     app_secret = '5BXCx3WWi0uIhjPy6s1DehHasBxYnTgbFSnoDv210B656x7uMmUiy8JSGrmNp9mX'
     data = {'grant_type': 'client_credentials',
