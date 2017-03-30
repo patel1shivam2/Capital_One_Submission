@@ -68,7 +68,7 @@
                 <img id="yelp_image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Yelp_Logo.svg/1280px-Yelp_Logo.svg.png"/>
             </div>
             <div id="form">
-                <form role="form" method="POST" class="search-box" onsubmit="return false">
+                <form action="{{ url_for('performSearch') }}"method="POST" class="search-box">
                     <div id="leftForm">
                         <div id="term" class="textEntry">
                             <div id="preBoxText"><p>Cuisine:</p></div>
@@ -97,7 +97,7 @@
                         <input id="radio3" type="radio" name="deals" value="false"> No, I'm in the mood to splurge<br>
                       </div>
                     </div>
-                    <button id="subBut" type="button" onclick="collectData()">Yelp!</button>
+                    <input id="subBut" type="submit" value="Yelp It!">
                 </form>
             </div>
         </div>
@@ -107,8 +107,6 @@
         {{mymap.html}}
     </div>
     <div id="resultsArea">
-        <h1>RESULTS AREA</h1>
-
     </div>
 
     <!-- jQuery Version 1.11.1 -->

@@ -1,9 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, Response
 import os, requests, json, pprint, jsonify
-from flask_googlemaps import GoogleMaps, Map
+from flask_googlemaps import GoogleMaps, Map, icons
 
 app = Flask(__name__)
 GoogleMaps(app)
+
+
 
 @app.route('/')
 @app.route('/index.html')
@@ -11,48 +13,67 @@ def hello_world():
     return render_template('index.html')
 
 @app.route('/application.html')
-def second():
+def secondPage():
     mymap = Map(
         identifier="view-side",
         lat=30.2672,
         lng=-97.7431,
-        markers=[(37.4419, -122.1419)],
-        style="height: 100%;"
+        markers={icons.dots.green: [(30.2672, -97.7431)]},
+        style="height: 100%; width: 100%"
     )
     return render_template('application.html', mymap=mymap)
 
-@app.route('/application.html', methods=['GET', 'POST'])
+@app.route('/application.html', methods=['GET','POST'])
 def performSearch():
-
-    if(request.method=='POST'):
-
-        term = request.form['term']
-        loc = request.form['location']
-        rad = request.form['radius_filter']
-        lim = request.form['limit']
-        deal = request.form['deals_filter']
-
+    if(request.method == 'POST'):
+        term = request.form.get('searchTerm')
+        print(term)
+        loc = request.form.get('location')
+        print(loc)
+        rad = request.form.get('radius')
+        print(rad)
+        lim = request.form.get('limit')
+        print(lim)
         userInfo = {
             'term': term,
             'location': loc,
             'radius_filter': rad,
             'limit': lim,
-            'deals_filter': deal
         }
+        json_data = getResponse(userInfo)
+        latCenter = json_data['region']['center']['latitude']
+        lngCenter = json_data['region']['center']['longitude']
+        for bus in json_data['businesses']:
+            print(bus['name'])
+        mp = Map(
+            identifier="view-side",
+            lat=30.2672,
+            lng=-97.7431,
+            markers={'http://maps.google.com/mapfiles/ms/icons/blue-dot.png': [(30.2672, -97.7431)]},
+            style="height: 100%; width: 100%"
+        )
+        mymap = Map(
+            identifier="view-side",
+            lat=30.2672,
+            lng=-97.7431,
+            markers={'http://maps.google.com/mapfiles/ms/icons/blue-dot.png': [(30.2672, -97.7431)]},
+            style="height: 100%; width: 100%"
+        )
+        return render_template('application.html', mymap=mymap)
 
-        app_id = 'H-HZgNDkCrVwWodMt-n8KA'
-        app_secret = '5BXCx3WWi0uIhjPy6s1DehHasBxYnTgbFSnoDv210B656x7uMmUiy8JSGrmNp9mX'
-        data = {'grant_type': 'client_credentials',
-                'client_id': app_id,
-                'client_secret': app_secret}
-        token = requests.post('https://api.yelp.com/oauth2/token', data=data)
-        access_token = token.json()['access_token']
-        url = 'https://api.yelp.com/v3/businesses/search'
-        headers = {'Authorization': 'bearer %s' % access_token}
-        resp = requests.get(url=url, params=userInfo, headers=headers)
-        print(resp.json())
-
-    return render_template('application.html')
+def getResponse(userInfo):
+    app_id = 'H-HZgNDkCrVwWodMt-n8KA'
+    app_secret = '5BXCx3WWi0uIhjPy6s1DehHasBxYnTgbFSnoDv210B656x7uMmUiy8JSGrmNp9mX'
+    data = {'grant_type': 'client_credentials',
+            'client_id': app_id,
+            'client_secret': app_secret}
+    token = requests.post('https://api.yelp.com/oauth2/token', data=data)
+    access_token = token.json()['access_token']
+    url = 'https://api.yelp.com/v3/businesses/search'
+    headers = {'Authorization': 'bearer %s' % access_token}
+    resp = requests.get(url=url, params=userInfo, headers=headers)
+    json_data = json.loads(resp.text)
+    return json_data
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
