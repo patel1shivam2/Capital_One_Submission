@@ -37,8 +37,6 @@ def performSearch():
         }
         json_data = getResponse(userInfo)
         print(json_data)
-        latCenter = json_data['region']['center']['latitude']
-        lngCenter = json_data['region']['center']['longitude']
         newMarkers = []
         for bus in json_data['businesses']:
             temp = {
@@ -50,8 +48,8 @@ def performSearch():
         print(newMarkers)
         mymap = Map(
             identifier="view-side",
-            lat=30.2672,
-            lng=-97.7431,
+            lat=json_data['region']['center']['latitude'],
+            lng=json_data['region']['center']['longitude'],
             markers=newMarkers,
             style="height: 100%; width: 100%"
         )
