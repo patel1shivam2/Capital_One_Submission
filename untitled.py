@@ -18,7 +18,6 @@ def secondPage():
         identifier="view-side",
         lat=30.2672,
         lng=-97.7431,
-        markers={icons.dots.green: [(30.2672, -97.7431)]},
         style="height: 100%; width: 100%"
     )
     return render_template('application.html', mymap=mymap)
@@ -42,11 +41,13 @@ def performSearch():
         lngCenter = json_data['region']['center']['longitude']
         newMarkers = []
         for bus in json_data['businesses']:
-            long = bus['coordinates']['longitude']
-            lat = bus['coordinates']['latitude']
-            newMarkers.append((lat, long))
-            print(long)
-            print(lat)
+            temp = {
+                'lat': bus['coordinates']['latitude'],
+                'lng': bus['coordinates']['longitude'],
+                'infobox': bus['name']
+            }
+            newMarkers.append(temp)
+
         print(newMarkers)
         mymap = Map(
             identifier="view-side",

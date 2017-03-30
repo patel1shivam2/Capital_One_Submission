@@ -12,6 +12,15 @@ function sendData()
             console.log(lat);
             console.log(lng);
         })
+
+        $.ajax({
+        type: "POST",
+        url: "/index.html",
+        data: {
+            'lat': lat,
+            'lng': lng
+        },
+    })
     }
 }
 
