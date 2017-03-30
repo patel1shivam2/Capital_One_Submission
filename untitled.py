@@ -44,16 +44,15 @@ def performSearch():
             temp = {
                 'lat': bus['coordinates']['latitude'],
                 'lng': bus['coordinates']['longitude'],
-                'infobox': bus['name']
+                'infobox': "Hello I am " + bus['name'],
             }
             newMarkers.append(temp)
-
         print(newMarkers)
         mymap = Map(
             identifier="view-side",
             lat=30.2672,
             lng=-97.7431,
-            markers={'http://maps.google.com/mapfiles/ms/icons/blue-dot.png': newMarkers},
+            markers=newMarkers,
             style="height: 100%; width: 100%"
         )
         return render_template('application.html', mymap=mymap)
