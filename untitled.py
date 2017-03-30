@@ -27,13 +27,9 @@ def secondPage():
 def performSearch():
     if(request.method == 'POST'):
         term = request.form.get('searchTerm')
-        print(term)
         loc = request.form.get('location')
-        print(loc)
         rad = request.form.get('radius')
-        print(rad)
         lim = request.form.get('limit')
-        print(lim)
         userInfo = {
             'term': term,
             'location': loc,
@@ -41,22 +37,22 @@ def performSearch():
             'limit': lim,
         }
         json_data = getResponse(userInfo)
+        print(json_data)
         latCenter = json_data['region']['center']['latitude']
         lngCenter = json_data['region']['center']['longitude']
+        newMarkers = []
         for bus in json_data['businesses']:
-            print(bus['name'])
-        mp = Map(
-            identifier="view-side",
-            lat=30.2672,
-            lng=-97.7431,
-            markers={'http://maps.google.com/mapfiles/ms/icons/blue-dot.png': [(30.2672, -97.7431)]},
-            style="height: 100%; width: 100%"
-        )
+            long = bus['coordinates']['longitude']
+            lat = bus['coordinates']['latitude']
+            newMarkers.append((lat, long))
+            print(long)
+            print(lat)
+        print(newMarkers)
         mymap = Map(
             identifier="view-side",
             lat=30.2672,
             lng=-97.7431,
-            markers={'http://maps.google.com/mapfiles/ms/icons/blue-dot.png': [(30.2672, -97.7431)]},
+            markers={'http://maps.google.com/mapfiles/ms/icons/blue-dot.png': newMarkers},
             style="height: 100%; width: 100%"
         )
         return render_template('application.html', mymap=mymap)
