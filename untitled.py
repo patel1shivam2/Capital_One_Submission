@@ -42,12 +42,17 @@ def performSearch():
             temp = {
                 'lat': bus['coordinates']['latitude'],
                 'lng': bus['coordinates']['longitude'],
-                'infobox': "Hello I am " + bus['name'],
+                'infobox': ("<h3><a href=" + bus['url'] + " target=_blank>" + bus['name'] + "</a></h3>"
+                            "<h5>Address: " + bus['location']['display_address'][0]
+                            + ", " + bus['location']['display_address'][1] + "</h5>"
+                            "<h5>Phone Number: " + bus['display_phone'] + "</h5>"
+                            )
             }
             newMarkers.append(temp)
         print(newMarkers)
         mymap = Map(
             identifier="view-side",
+            zoom=11,
             lat=json_data['region']['center']['latitude'],
             lng=json_data['region']['center']['longitude'],
             markers=newMarkers,
