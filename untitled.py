@@ -36,21 +36,21 @@ def performSearch():
             'limit': lim,
         }
         json_data = getResponse(userInfo)
-        pp = pprint.PrettyPrinter(indent=4)
-        pp.pprint(json_data)
         newMarkers = []
+        pp = pprint.PrettyPrinter(indent=2)
+        pp.pprint(json_data)
         for bus in json_data['businesses']:
-            temp = {
-                'lat': bus['coordinates']['latitude'],
-                'lng': bus['coordinates']['longitude'],
-                'infobox': ("<h3><a href=" + bus['url'] + " target=_blank>" + bus['name'] + "</a></h3>"
-                            "<h5>Address: " + bus['location']['display_address'][0]
-                            + ", " + bus['location']['display_address'][1] + "</h5>"
-                            "<h5>Phone Number: " + bus['display_phone'] + "</h5>"
-                            "<h5>Price Level: " + str(bus['price']) + " Average Rating: " + str(bus['rating']) + "</h5>"
-                            )
-            }
-            newMarkers.append(temp)
+                temp = {
+                    'lat': bus['coordinates']['latitude'],
+                    'lng': bus['coordinates']['longitude'],
+                    'infobox': ("<h3><a href=" + bus['url'] + " target=_blank>" + bus['name'] + "</a></h3>"
+                                "<h5>Address: " + bus['location']['display_address'][0]
+                                + ", " + bus['location']['display_address'][1] + "</h5>"
+                                "<h5>Phone Number: " + bus['display_phone'] + "</h5>"
+                                "<h5>Average Rating: " + str(bus['rating']) + "</h5>"
+                                )
+                }
+        newMarkers.append(temp)
         mymap = Map(
             identifier="view-side",
             zoom=11,
