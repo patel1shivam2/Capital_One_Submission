@@ -1,0 +1,23 @@
+#venue
+{
+    border: red solid;
+}
+
+#locImage
+{
+    height: 200px;
+    width: 150px;
+}
+
+#leftResult
+{
+    border: blue dashed;
+    float: left;
+    left: 0%;
+}
+
+#rightResult
+{
+    border: green dashed;
+    right: 0%;
+}

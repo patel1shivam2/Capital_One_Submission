@@ -15,6 +15,7 @@
     <!-- Bootstrap Core CSS -->
     <link href="static/css/bootstrap.css" rel="stylesheet">
     <link href="static/css/app.css" rel="stylesheet">
+    <link href="static/css/results.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <style>
@@ -107,6 +108,19 @@
         {{mymap.html}}
     </div>
     <div id="resultsArea">
+        <div id="scrollingResults" style="overflow-x:hidden; overflow-y: scroll; height:100%;">
+            {% for bus in results %}
+            <div id="venue">
+                <div id="leftResult">
+                    <h4 align="left"><a target=_blank href="{{ bus['url'] }}">{{ bus['name'] }}</a></h4>
+                </div>
+                <div id="rightResult">
+                    <img id="locImage" style="max-height: 200px; max-width: 200px;" src="{{ bus['image_url'] }}">
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
     </div>
 
     <!-- jQuery Version 1.11.1 -->
