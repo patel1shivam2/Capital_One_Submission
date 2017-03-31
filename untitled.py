@@ -36,7 +36,8 @@ def performSearch():
             'limit': lim,
         }
         json_data = getResponse(userInfo)
-        print(json_data)
+        pp = pprint.PrettyPrinter(indent=4)
+        pp.pprint(json_data)
         newMarkers = []
         for bus in json_data['businesses']:
             temp = {
@@ -46,10 +47,10 @@ def performSearch():
                             "<h5>Address: " + bus['location']['display_address'][0]
                             + ", " + bus['location']['display_address'][1] + "</h5>"
                             "<h5>Phone Number: " + bus['display_phone'] + "</h5>"
+                            "<h5>Price Level: " + str(bus['price']) + " Average Rating: " + str(bus['rating']) + "</h5>"
                             )
             }
             newMarkers.append(temp)
-        print(newMarkers)
         mymap = Map(
             identifier="view-side",
             zoom=11,
