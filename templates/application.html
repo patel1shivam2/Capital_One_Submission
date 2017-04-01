@@ -108,19 +108,19 @@
         {{mymap.html}}
     </div>
     <div id="resultsArea">
-        <div id="scrollingResults" style="overflow-x:hidden; overflow-y: scroll; height:100%; padding-top: 2%; border-bottom: 5px; padding-left: 2%; padding-right: 2%;">
+        <div id="scrollingResults" style="overflow-x:hidden; overflow-y: scroll; height:100%; padding-top: 2%; border-bottom: 5px; padding-left: 2%;">
             {% for bus in results %}
-            <div id="venue" style="border-bottom: groove; min-height: 150px; max-height: 150px;">
+            <div id="venue" style="border-bottom: groove; min-height: 170px; max-height: 170px;">
                 <div style="width: 96%; right: 2%">
-                    <div id="leftResult" style="float: left;">
-                        <h4 align="left"><a target=_blank href="{{ bus['url'] }}">{{ bus['name'] }}</a></h4>
+                    <div id="leftResult" style="width: 60%; float: left;">
+                        <h4 style="overflow: auto" align="left"><a style="overflow: auto" target=_blank href="{{ bus['url'] }}">{{ bus['name'] }}</a></h4>
                         <h5><strong>Address:</strong> {{ bus['location']['display_address'][0] }}</h5>
                         <h5>         {{ bus['location']['display_address'][1] }}</h5></h5>
                         <h5><strong>Phone Number:</strong> {{ bus['display_phone'] }}</h5>
                         <h5><strong>Average Rating:</strong> {{ bus['rating'] }}</h5>
                     </div>
-                    <div id="rightResult" style="float: right;">
-                     <img id="locImage" style="max-height: 140px; max-width: 200px;" src="{{ bus['image_url'] }}">
+                    <div id="rightResult" style="float: right; max-height: 100%; min-height: 100%; max-width: 40%;">
+                     <img id="locImage" style="max-height: 165px; max-width: 100%; object-fit: contain; position: relative; vertical-align: middle; inline-block;" src="{{ bus['image_url'] }}">
                     </div>
                 </div>
             </div>

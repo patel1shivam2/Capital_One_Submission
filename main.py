@@ -35,7 +35,6 @@ def performSearch():
             'limit': lim,
         }
         json_data = getResponse(userInfo)
-        json_data = addInReviews(json_data)
         newMarkers = []
         pp = pprint.PrettyPrinter(indent=2)
         pp.pprint(json_data)
@@ -51,12 +50,6 @@ def performSearch():
             style="height: 100%; width: 100%"
         )
         return render_template('application.html', mymap=mymap, results=json_data['businesses'])
-
-def addInReviews(json_data):
-    for bus in json_data['businesses']:
-        reviews = getReview(bus['id'])
-        bus.update(reviews)
-    return json_data
 
 def getReview(id):
     app_id = 'H-HZgNDkCrVwWodMt-n8KA'
@@ -79,8 +72,7 @@ def makeBox(bus):
         'infobox': ("<h3><a href=" + bus['url'] + " target=_blank>" + bus['name'] + "</a></h3>"
                     "<h5>Address: " + bus['location']['display_address'][0]+ ", " + bus['location']['display_address'][1] + "</h5>"
                     "<h5>Phone Number: " + bus['display_phone'] + "</h5>"
-                    "<h5>Average Rating: " + str(bus['rating']) + "</h5>"
-                    "<h5>Review</h5>")
+                    "<h5>Average Rating: " + str(bus['rating']) + "</h5>")
     }
     if 'price' in bus:
         temp = {
@@ -90,8 +82,7 @@ def makeBox(bus):
                         "<h5><img src=static/images/home.png style='max-width: 20px; max-height: 20px;'>  " + bus['location']['display_address'][0] + ", " + bus['location']['display_address'][1] + "</h5>"
                         "<h5><img src=static/images/phone.png style='max-width: 20px; max-height: 20px;'> " + bus['display_phone'] + "</h5>"
                         "<h5><img src=static/images/cash-other.png style='max-width: 20px; max-height: 20px;'> " + str(bus['price']) + "</h5>"
-                        "<h5><img src=static/images/rating.png style='max-width: 20px; max-height: 20px;'> " + str(bus['rating']) + "</h5>"
-                        "<h5><strong>Review</strong></h5>")
+                        "<h5><img src=static/images/rating.png style='max-width: 20px; max-height: 20px;'> " + str(bus['rating']) + "</h5>")
         }
     return temp
 
@@ -110,5 +101,5 @@ def getResponse(userInfo):
     return json_data
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
+    port = int(os.environ.get("PORT", 4000))
     app.run(host='0.0.0.0', port=port)
