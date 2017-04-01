@@ -15,7 +15,6 @@
     <!-- Bootstrap Core CSS -->
     <link href="static/css/bootstrap.css" rel="stylesheet">
     <link href="static/css/app.css" rel="stylesheet">
-    <link href="static/css/results.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <style>
@@ -66,7 +65,7 @@
     <div class="container">
         <div class="formEntry">
             <div id="formImage">
-                <img id="yelp_image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Yelp_Logo.svg/1280px-Yelp_Logo.svg.png"/>
+                <img id="yelp_image" src="static/images/yelp_logo.png"/>
             </div>
             <div id="form">
                 <form action="{{ url_for('performSearch') }}"method="POST" class="search-box">
@@ -82,7 +81,7 @@
                         <div id="radNLim" class="textEntry">
                             <div id="radius" class="textEntry">
                                 <div id="biggerBox"><span><p><strong>Radius (mi):</strong></p></span></div> 
-                                <div id ="smallerSch"><input id="rad" type="number" name="radius" placeholder="4"> </div>
+                                <div id ="smallerSch"><input id="rad" type="number" min="1" max="25" name="radius" placeholder="4"> </div>
                             </div>
                             <div id="lim" class="textEntry">
                                 <div id="biggerBox"><span><p><strong>Max Number of Businesses:</strong></p></span></div> 
@@ -92,11 +91,17 @@
                     </div>
                     <div id="rightForm">
                       <div id="deals">
-                        <h5>Do you prefer locations offering discounts?</h5>
-                        <input id="radio1" type="radio" name="deals" value="true" checked> I'm a College Student! Of course I want deals!<br>
-                        <input id="radio2" type="radio" name="deals" value="true"> I love some discounts!<br>
-                        <input id="radio3" type="radio" name="deals" value="false"> No, I'm in the mood to splurge<br>
+                        <h5>Do you want a location that is open right now?</h5>
+                        <input id="radio1" type="radio" name="open" value="true" checked>&nbsp&nbspYeah. I'm looking to go right now!<br>
+                        <input id="radio2" type="radio" name="open" value="false">&nbsp&nbspNo. It doesn't matter<br>
                       </div>
+                        <div id="priceLevel">
+                            <h5>Check the price levels that work for you?</h5>
+                            <input type="checkbox" name="prices" value="$"> $<br>
+                            <input type="checkbox" name="prices" value="$$"> $$<br>
+                            <input type="checkbox" name="prices" value="$$$"> $$$<br>
+                            <input type="checkbox" name="prices" value="$$$$"> $$$$<br>
+                        </div>
                     </div>
                     <input id="subBut" type="submit" value="Yelp It!">
                 </form>

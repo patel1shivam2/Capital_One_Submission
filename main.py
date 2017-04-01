@@ -28,15 +28,20 @@ def performSearch():
         loc = request.form.get('location')
         rad = request.form.get('radius')
         lim = request.form.get('limit')
+        open = request.form.get('open')
 
-        if rad > 25:
-            rad = 25
+        print(open)
 
         if rad == '':
-            rad = 40000
+            rad = str(40000)
+        else:
+            rad = str(rad * 1609)
+
+        if int(rad) > 40000:
+            rad = str(40000)
 
         if lim == '':
-            lim = 50
+            lim = str(50)
 
 
         userInfo = {
@@ -44,6 +49,7 @@ def performSearch():
             'location': loc,
             'radius_filter': rad,
             'limit': lim,
+            'open_now': open
         }
         json_data = getResponse(userInfo)
         newMarkers = []
