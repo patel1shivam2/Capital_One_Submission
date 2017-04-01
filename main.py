@@ -28,6 +28,17 @@ def performSearch():
         loc = request.form.get('location')
         rad = request.form.get('radius')
         lim = request.form.get('limit')
+
+        if rad > 25:
+            rad = 25
+
+        if rad == '':
+            rad = 40000
+
+        if lim == '':
+            lim = 50
+
+
         userInfo = {
             'term': term,
             'location': loc,
