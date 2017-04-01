@@ -35,6 +35,7 @@ def performSearch():
             'limit': lim,
         }
         json_data = getResponse(userInfo)
+        json_data = addInReviews(json_data)
         newMarkers = []
         pp = pprint.PrettyPrinter(indent=2)
         pp.pprint(json_data)
@@ -51,33 +52,48 @@ def performSearch():
         )
         return render_template('application.html', mymap=mymap, results=json_data['businesses'])
 
+def addInReviews(json_data):
+    for bus in json_data['businesses']:
+        reviews = getReview(bus['id'])
+        bus.update(reviews)
+    return json_data
+
+def getReview(id):
+    app_id = 'H-HZgNDkCrVwWodMt-n8KA'
+    app_secret = '5BXCx3WWi0uIhjPy6s1DehHasBxYnTgbFSnoDv210B656x7uMmUiy8JSGrmNp9mX'
+    data = {'grant_type': 'client_credentials',
+            'client_id': app_id,
+            'client_secret': app_secret}
+    token = requests.post('https://api.yelp.com/oauth2/token', data=data)
+    access_token = token.json()['access_token']
+    url = "https://api.yelp.com/v3/businesses/" + id + "/reviews"
+    headers = {'Authorization': 'bearer %s' % access_token}
+    resp = requests.get(url=url, headers=headers)
+    json_data = json.loads(resp.text)
+    return json_data
+
 def makeBox(bus):
     temp = {
         'lat': bus['coordinates']['latitude'],
         'lng': bus['coordinates']['longitude'],
         'infobox': ("<h3><a href=" + bus['url'] + " target=_blank>" + bus['name'] + "</a></h3>"
-                                                                                    "<h5>Address: " +
-                    bus['location']['display_address'][0]
-                    + ", " + bus['location']['display_address'][1] + "</h5>"
-                                                                     "<h5>Phone Number: " + bus[
-                        'display_phone'] + "</h5>"
-                                           "<h5>Average Rating: " + str(bus['rating']) + "</h5>")
+                    "<h5>Address: " + bus['location']['display_address'][0]+ ", " + bus['location']['display_address'][1] + "</h5>"
+                    "<h5>Phone Number: " + bus['display_phone'] + "</h5>"
+                    "<h5>Average Rating: " + str(bus['rating']) + "</h5>"
+                    "<h5>Review</h5>")
     }
     if 'price' in bus:
         temp = {
             'lat': bus['coordinates']['latitude'],
             'lng': bus['coordinates']['longitude'],
             'infobox': ("<h3><a href=" + bus['url'] + " target=_blank>" + bus['name'] + "</a></h3>"
-                                                                                        "<h5>Address: " +
-                        bus['location']['display_address'][0] + ", " + bus['location']['display_address'][
-                            1] + "</h5>"
-                                 "<h5>Phone Number: " + bus['display_phone'] + "</h5>"
-                                                                               "<h5>Price Level: " + str(
-                bus['price']) + "</h5>"
-                                "<h5>Average Rating: " + str(bus['rating']) + "</h5>")
+                        "<h5><img src=static/images/home.png style='max-width: 20px; max-height: 20px;'>  " + bus['location']['display_address'][0] + ", " + bus['location']['display_address'][1] + "</h5>"
+                        "<h5><img src=static/images/phone.png style='max-width: 20px; max-height: 20px;'> " + bus['display_phone'] + "</h5>"
+                        "<h5><img src=static/images/cash-other.png style='max-width: 20px; max-height: 20px;'> " + str(bus['price']) + "</h5>"
+                        "<h5><img src=static/images/rating.png style='max-width: 20px; max-height: 20px;'> " + str(bus['rating']) + "</h5>"
+                        "<h5><strong>Review</strong></h5>")
         }
     return temp
-
 
 def getResponse(userInfo):
     app_id = 'H-HZgNDkCrVwWodMt-n8KA'
@@ -94,5 +110,4 @@ def getResponse(userInfo):
     return json_data
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run()

@@ -72,20 +72,20 @@
                 <form action="{{ url_for('performSearch') }}"method="POST" class="search-box">
                     <div id="leftForm">
                         <div id="term" class="textEntry">
-                            <div id="preBoxText"><p>Cuisine:</p></div>
+                            <div id="preBoxText"><p><strong>Cuisine:</strong></p></div>
                             <div id ="sch"><input id="searchTerm" type="text" name="searchTerm" placeholder="Mexican or Chipotle" required></div>
                         </div>
                         <div id="zip" class="textEntry">
-                            <div id="preBoxText"><span><p>Location:</p></span></div>
+                            <div id="preBoxText"><span><p><strong>Location:</strong></p></span></div>
                             <div id ="sch"><input id="location" type="text" name="location" placeholder="My Address, Chicago, IL, 60600" required> </div>
                         </div>
                         <div id="radNLim" class="textEntry">
                             <div id="radius" class="textEntry">
-                                <div id="biggerBox"><span><p>Radius (mi):</p></span></div> 
+                                <div id="biggerBox"><span><p><strong>Radius (mi):</strong></p></span></div> 
                                 <div id ="smallerSch"><input id="rad" type="number" name="radius" placeholder="4"> </div>
                             </div>
                             <div id="lim" class="textEntry">
-                                <div id="biggerBox"><span><p>Max Number of Businesses:</p></span></div> 
+                                <div id="biggerBox"><span><p><strong>Max Number of Businesses:</strong></p></span></div> 
                                 <div id ="smallerSch"><input id="maxNum" type="number" name="limit" placeholder="10"></div>
                             </div>
                         </div>
@@ -114,10 +114,10 @@
                 <div style="width: 96%; right: 2%">
                     <div id="leftResult" style="float: left;">
                         <h4 align="left"><a target=_blank href="{{ bus['url'] }}">{{ bus['name'] }}</a></h4>
-                        <h5>Address: {{ bus['location']['display_address'][0] }}</h5>
+                        <h5><strong>Address:</strong> {{ bus['location']['display_address'][0] }}</h5>
                         <h5>         {{ bus['location']['display_address'][1] }}</h5></h5>
-                        <h5>Phone Number: {{ bus['display_phone'] }}</h5>
-                        <h5>Average Rating: {{ bus['rating'] }}</h5>
+                        <h5><strong>Phone Number:</strong> {{ bus['display_phone'] }}</h5>
+                        <h5><strong>Average Rating:</strong> {{ bus['rating'] }}</h5>
                     </div>
                     <div id="rightResult" style="float: right;">
                      <img id="locImage" style="max-height: 140px; max-width: 200px;" src="{{ bus['image_url'] }}">
