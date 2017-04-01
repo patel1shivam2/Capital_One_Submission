@@ -2,6 +2,33 @@
  * Created by shivampatel on 3/21/17.
  */
 
+// $("form").on( "submit", function( event ) {
+//     var term = document.getElementById('searchTerm').value;
+//     console.log(term);
+//     var location = document.getElementById('location').value;
+//     var radius = document.getElementById('rad').value;
+//     var maxNum = document.getElementById('maxNum').value;
+//     var deal;
+//     if (document.getElementById('radio1').value)
+//         deal = true;
+//     if (document.getElementById('radio2').value)
+//         deal = true;
+//     if (document.getElementById('radio1').value)
+//         deal = false;
+//
+//     information = {
+//             'term': term,
+//             'location': location,
+//             'radius_filter': radius,
+//             'limit': maxNum,
+//             'deals_filter': deal
+//         }
+//         console.log(information);
+//
+//     $.post('/getdata.html',information,function(returnData){
+//         console.log(returnData)
+//     });
+// });
 
 function sendData()
 {
@@ -20,7 +47,7 @@ function sendData()
             'lat': lat,
             'lng': lng
         },
-    })
+    }))
     }
 }
 
@@ -49,4 +76,9 @@ function collectData() {
         },
     })
     return null;
+}
+
+function appendEntry(data)
+{
+
 }

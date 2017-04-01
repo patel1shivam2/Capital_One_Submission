@@ -6,7 +6,6 @@ app = Flask(__name__)
 GoogleMaps(app)
 
 
-
 @app.route('/')
 @app.route('/index.html')
 def hello_world():
@@ -22,9 +21,9 @@ def secondPage():
     )
     return render_template('application.html', mymap=mymap)
 
-@app.route('/application.html', methods=['GET','POST'])
+@app.route('/application.html', methods=['POST'])
 def performSearch():
-    if(request.method == 'POST'):
+    if (request.method == 'POST'):
         term = request.form.get('searchTerm')
         loc = request.form.get('location')
         rad = request.form.get('radius')
@@ -57,22 +56,28 @@ def makeBox(bus):
         'lat': bus['coordinates']['latitude'],
         'lng': bus['coordinates']['longitude'],
         'infobox': ("<h3><a href=" + bus['url'] + " target=_blank>" + bus['name'] + "</a></h3>"
-                    "<h5>Address: " + bus['location']['display_address'][0]
+                                                                                    "<h5>Address: " +
+                    bus['location']['display_address'][0]
                     + ", " + bus['location']['display_address'][1] + "</h5>"
-                    "<h5>Phone Number: " + bus['display_phone'] + "</h5>"
-                    "<h5>Average Rating: " + str(bus['rating']) + "</h5>")
+                                                                     "<h5>Phone Number: " + bus[
+                        'display_phone'] + "</h5>"
+                                           "<h5>Average Rating: " + str(bus['rating']) + "</h5>")
     }
     if 'price' in bus:
         temp = {
             'lat': bus['coordinates']['latitude'],
             'lng': bus['coordinates']['longitude'],
             'infobox': ("<h3><a href=" + bus['url'] + " target=_blank>" + bus['name'] + "</a></h3>"
-                        "<h5>Address: " + bus['location']['display_address'][0]+ ", " + bus['location']['display_address'][1]+ "</h5>"
-                        "<h5>Phone Number: " + bus['display_phone'] + "</h5>"
-                        "<h5>Price Level: " + str(bus['price']) + "</h5>"
-                        "<h5>Average Rating: " + str(bus['rating']) + "</h5>")
+                                                                                        "<h5>Address: " +
+                        bus['location']['display_address'][0] + ", " + bus['location']['display_address'][
+                            1] + "</h5>"
+                                 "<h5>Phone Number: " + bus['display_phone'] + "</h5>"
+                                                                               "<h5>Price Level: " + str(
+                bus['price']) + "</h5>"
+                                "<h5>Average Rating: " + str(bus['rating']) + "</h5>")
         }
     return temp
+
 
 def getResponse(userInfo):
     app_id = 'H-HZgNDkCrVwWodMt-n8KA'

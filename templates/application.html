@@ -121,7 +121,7 @@
                     </div>
                     <div id="rightResult">
                      <img id="locImage" style="max-height: 150px; max-width: 200px;" src="{{ bus['image_url'] }}">
-                </div>
+                    </div>
                 </div>
             </div>
             {% endfor %}
@@ -130,13 +130,10 @@
 
     <!-- jQuery Version 1.11.1 -->
     <script src="static/js/jquery.js"></script>
-
+    <script type=text/javascript src="{{url_for('static', filename='jquery.js') }}"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="static/js/bootstrap.js"></script>
     <script src="static/js/userDefined.js"></script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBztrjTHwmnh-fmPw8WGMqDpOioJDpUuGA&callback=initMap">
-    </script>
 
 </body>
 
