@@ -3,7 +3,7 @@ import os, requests, json, pprint, jsonify
 from flask_googlemaps import GoogleMaps, Map, icons
 
 app = Flask(__name__)
-GoogleMaps(app)
+GoogleMaps(app, key="AIzaSyDHvkt3LljCyZ_WhFeys7NiGF9H6SCBzss")
 
 
 @app.route('/')
