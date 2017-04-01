@@ -112,14 +112,14 @@
             {% for bus in results %}
             <div id="venue" style="border-bottom: groove; min-height: 170px; max-height: 170px;">
                 <div style="width: 96%; right: 2%">
-                    <div id="leftResult" style="width: 60%; float: left;">
+                    <div id="leftResult" style="width: 50%; float: left;">
                         <h4 style="overflow: auto" align="left"><a style="overflow: auto" target=_blank href="{{ bus['url'] }}">{{ bus['name'] }}</a></h4>
-                        <h5><strong>Address:</strong> {{ bus['location']['display_address'][0] }}</h5>
-                        <h5>         {{ bus['location']['display_address'][1] }}</h5></h5>
-                        <h5><strong>Phone Number:</strong> {{ bus['display_phone'] }}</h5>
-                        <h5><strong>Average Rating:</strong> {{ bus['rating'] }}</h5>
+                        <h5><img src=static/images/home.png style='max-width: 20px; max-height: 20px;'> {{ bus['location']['display_address'][0] }}</h5>
+                        <h5>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ bus['location']['display_address'][1] }}</h5></h5>
+                        <h5><img src=static/images/phone.png style='max-width: 20px; max-height: 20px;'> {{ bus['display_phone'] }}</h5>
+                        <h5><img src=static/images/rating.png style='max-width: 20px; max-height: 20px;'> {{ bus['rating'] }}</h5>
                     </div>
-                    <div id="rightResult" style="float: right; max-height: 100%; min-height: 100%; max-width: 40%;">
+                    <div id="rightResult" style="float: right; max-height: 100%; min-height: 100%; max-width: 45%;">
                      <img id="locImage" style="max-height: 165px; max-width: 100%; object-fit: contain; position: relative; vertical-align: middle; inline-block;" src="{{ bus['image_url'] }}">
                     </div>
                 </div>
