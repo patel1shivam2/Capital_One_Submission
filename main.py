@@ -13,15 +13,15 @@ longitude = -87.6298
 @app.route('/')
 @app.route('/index.html', methods=['GET','POST'])
 def hello_world():
-    send_url = 'http://freegeoip.net/json'
-    r = requests.get(send_url)
+    ip = request.headers.get('X-Forwarded-For', request.remote_addr)
+    url = 'http://freegeoip.net/json/' + ip
+    r = requests.get(url)
     j = json.loads(r.text)
     global latitude
     latitude = j['latitude']
-    print(latitude)
     global longitude
     longitude = j['longitude']
-    print(longitude)
+    print(j)
     return render_template('index.html')
 
 @app.route('/application.html')
