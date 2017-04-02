@@ -5,17 +5,23 @@ from flask_googlemaps import GoogleMaps, Map, icons
 app = Flask(__name__)
 GoogleMaps(app, key="AIzaSyDHvkt3LljCyZ_WhFeys7NiGF9H6SCBzss")
 
-latitude = 30.2672
-longitude = -97.7431
+latitude = 41.8781
+longitude = -87.6298
 
 @app.route('/')
-@app.route('/index.html', methods=['POST'])
+@app.route('/index.html', methods=['GET','POST'])
 def hello_world():
     if request.method == 'POST':
-        global latitude
-        latitude = request.method['lat']
-        global longitude
-        longitude = request.method['lng']
+        print("POST")
+        lt = request.args.get('lat')
+        print(lt)
+        if lt != None:
+            global latitude
+            latitude = lt
+        ln = request.args.get('lng')
+        if ln != None:
+            global longitude
+            longitude = ln
         return '', 204
     return render_template('index.html')
 
@@ -172,6 +178,7 @@ def getResponse(userInfo):
     resp = requests.get(url=url, params=userInfo, headers=headers)
     json_data = json.loads(resp.text)
     return json_data
+
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 4000))

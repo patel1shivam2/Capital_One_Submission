@@ -2,17 +2,18 @@
  * Created by shivampatel on 3/21/17.
  */
 
-$(document).ready(function(){
+function sendLoc() {
 
+    console.log("YES")
     var lat = 30.2672;
     var lng = -97.7431;
-    if(navigator.geolocation){
+    if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
-                lat = position.coords.latitude;
-                lng = position.coords.longitude;
-                console.log(lat);
-                console.log(lng);
-            })
+            lat = position.coords.latitude;
+            lng = position.coords.longitude;
+            console.log(lat);
+            console.log(lng);
+        })
     }
 
     $.ajax({
@@ -22,7 +23,8 @@ $(document).ready(function(){
             'lat': lat,
             'lng': lng
         },
-});
+    });
+}
 
 
 
