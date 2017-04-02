@@ -5,8 +5,8 @@ from flask_googlemaps import GoogleMaps, Map, icons
 app = Flask(__name__)
 GoogleMaps(app, key="AIzaSyDHvkt3LljCyZ_WhFeys7NiGF9H6SCBzss")
 
-latitude = 41.8781
-longitude = -87.6298
+latitude = 30.2672
+longitude = -97.7431
 
 @app.route('/')
 @app.route('/index.html', methods=['GET','POST'])
