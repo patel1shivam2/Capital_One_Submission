@@ -11,18 +11,6 @@ longitude = -87.6298
 @app.route('/')
 @app.route('/index.html', methods=['GET','POST'])
 def hello_world():
-    if request.method == 'POST':
-        print("POST")
-        lt = request.args.get('lat')
-        print(lt)
-        if lt != None:
-            global latitude
-            latitude = lt
-        ln = request.args.get('lng')
-        if ln != None:
-            global longitude
-            longitude = ln
-        return '', 204
     return render_template('index.html')
 
 @app.route('/application.html')

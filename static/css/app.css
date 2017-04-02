@@ -43,8 +43,8 @@
 {
     vertical-align: middle;
     position: absolute;
-    left: 18%;
-    width: 30%;
+    left: 19%;
+    width: 32%;
     height: 100%;
     min-height: 100%;
     padding-left: 3px;
@@ -55,7 +55,7 @@
 #rightForm
 {
     position: absolute;
-    left: 49%;
+    left: 52%;
     height: 100%;
     width: 46%;
 }
@@ -81,7 +81,8 @@
 
 #rightPrices
 {
-
+    position: relative;
+    left: 5%;
     float: left;
 }
 
@@ -90,7 +91,8 @@
     position: absolute;
     top: 28%;
     bottom: 0%;
-    width: 60%;
+    height: 98%;
+    width: 55%;
     max-width: 60%;
 }
 
@@ -158,6 +160,15 @@
 {
     position: absolute;
     left: 0%;
+    height: 100%;
+    width: 75%;
+    font-family: Sans-serif;
+}
+
+#biggerBox2
+{
+    position: absolute;
+    left: 2%;
     height: 100%;
     width: 75%;
     font-family: Sans-serif;
