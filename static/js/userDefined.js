@@ -2,6 +2,33 @@
  * Created by shivampatel on 3/21/17.
  */
 
+$(document).ready(function(){
+
+    var lat = 30.2672;
+    var lng = -97.7431;
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(function (position) {
+                lat = position.coords.latitude;
+                lng = position.coords.longitude;
+                console.log(lat);
+                console.log(lng);
+            })
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "/index.html",
+        data: {
+            'lat': lat,
+            'lng': lng
+        },
+});
+
+
+
+
+
+
 // $("form").on( "submit", function( event ) {
 //     var term = document.getElementById('searchTerm').value;
 //     console.log(term);

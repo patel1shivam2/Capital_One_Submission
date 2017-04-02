@@ -90,17 +90,24 @@
                         </div>
                     </div>
                     <div id="rightForm">
-                      <div id="deals">
-                        <h5>Do you want a location that is open right now?</h5>
-                        <input id="radio1" type="radio" name="open" value="true" checked>&nbsp&nbspYeah. I'm looking to go right now!<br>
-                        <input id="radio2" type="radio" name="open" value="false">&nbsp&nbspNo. It doesn't matter<br>
-                      </div>
-                        <div id="priceLevel">
-                            <h5>Check the price levels that work for you?</h5>
-                            <input type="checkbox" name="prices" value="$"> $<br>
-                            <input type="checkbox" name="prices" value="$$"> $$<br>
-                            <input type="checkbox" name="prices" value="$$$"> $$$<br>
-                            <input type="checkbox" name="prices" value="$$$$"> $$$$<br>
+                        <div id="handler">
+                          <div id="open">
+                            <h5>Do you want a location that is open right now?</h5>
+                            <input id="radio1" type="radio" name="open" value="true">&nbsp&nbspYeah. I'm looking to go right now!<br>
+                            <input id="radio2" type="radio" name="open" value="false" checked>&nbsp&nbspNo. It doesn't matter<br>
+                          </div>
+                            <div id="priceLevel">
+                                <h5>Check the price levels that work for you?</h5>
+                                <div id="leftPrices">
+                                    <input type="checkbox" name="price1" value="1"> $<br>
+                                    <input type="checkbox" name="price3" value="3"> $$$<br>
+                                </div>
+                                <div id="rightPrices">
+                                    <input type="checkbox" name="price2" value="2"> $$<br>
+                                    <input type="checkbox" name="price4" value="4"> $$$$<br>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                     <input id="subBut" type="submit" value="Yelp It!">
@@ -138,7 +145,6 @@
     <script type=text/javascript src="{{url_for('static', filename='jquery.js') }}"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="static/js/bootstrap.js"></script>
-    <script src="static/js/userDefined.js"></script>
 
 </body>
 

@@ -44,6 +44,7 @@
 {
     vertical-align: middle;
     position: absolute;
+    border: green dashed;
     left: 18%;
     width: 30%;
     height: 100%;
@@ -56,8 +57,34 @@
 #rightForm
 {
     position: absolute;
-    left: 50%;
+    border: blue dashed;
+    left: 49%;
     height: 100%;
+}
+
+#deals
+{
+    border: orange dashed;
+    float: left;
+}
+
+#priceLevel
+{
+    border: purple dashed;
+    display: block;
+    float: right;
+}
+
+#leftPrices
+{
+    border: teal dashed;
+    float: left;
+}
+
+#rightPrices
+{
+    border: salmon dashed;
+    float: left;
 }
 
 #mapArea

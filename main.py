@@ -5,18 +5,28 @@ from flask_googlemaps import GoogleMaps, Map, icons
 app = Flask(__name__)
 GoogleMaps(app, key="AIzaSyDHvkt3LljCyZ_WhFeys7NiGF9H6SCBzss")
 
+latitude = 30.2672
+longitude = -97.7431
 
 @app.route('/')
-@app.route('/index.html')
+@app.route('/index.html', methods=['POST'])
 def hello_world():
+    if request.method == 'POST':
+        global latitude
+        latitude = request.method['lat']
+        global longitude
+        longitude = request.method['lng']
+        return '', 204
     return render_template('index.html')
 
 @app.route('/application.html')
 def secondPage():
+    global latitude
+    global longitude
     mymap = Map(
         identifier="view-side",
-        lat=30.2672,
-        lng=-97.7431,
+        lat=latitude,
+        lng=longitude,
         style="height: 100%; width: 100%"
     )
     return render_template('application.html', mymap=mymap)
@@ -29,8 +39,23 @@ def performSearch():
         rad = request.form.get('radius')
         lim = request.form.get('limit')
         open = request.form.get('open')
-
-        print(open)
+        single = request.form.get('price1')
+        double = request.form.get('price2')
+        triple = request.form.get('price3')
+        four = request.form.get('price4')
+        price = ""
+        if single != None:
+            price += str(str(1) + ",")
+        if double != None:
+            price += str(str(2) + ",")
+        if triple != None:
+            price += str(str(3) + ",")
+        if four != None:
+            price += str(4)
+        if four == None and len(price) % 2 == 0:
+            price = price[:-1]
+        if len(price) == 0:
+            price = "1,2,3,4"
 
         if rad == '':
             rad = str(40000)
@@ -43,13 +68,13 @@ def performSearch():
         if lim == '':
             lim = str(50)
 
-
         userInfo = {
             'term': term,
             'location': loc,
             'radius_filter': rad,
             'limit': lim,
-            'open_now': open
+            'open_now': open,
+            'price': price
         }
         json_data = getResponse(userInfo)
         newMarkers = []
@@ -83,24 +108,55 @@ def getReview(id):
     return json_data
 
 def makeBox(bus):
-    temp = {
-        'lat': bus['coordinates']['latitude'],
-        'lng': bus['coordinates']['longitude'],
-        'infobox': ("<h3><a href=" + bus['url'] + " target=_blank>" + bus['name'] + "</a></h3>"
-                    "<h5><img src=static/images/home.png style='max-width: 20px; max-height: 20px;'> " + bus['location']['display_address'][0]+ ", " + bus['location']['display_address'][1] + "</h5>"
-                    "<h5><img src=static/images/phone.png style='max-width: 20px; max-height: 20px;'> " + bus['display_phone'] + "</h5>"
-                    "<h5><img src=static/images/rating.png style='max-width: 20px; max-height: 20px;'> " + str(bus['rating']) + "</h5>")
-    }
-    if 'price' in bus:
+    if bus['is_closed'] == True:
         temp = {
             'lat': bus['coordinates']['latitude'],
             'lng': bus['coordinates']['longitude'],
             'infobox': ("<h3><a href=" + bus['url'] + " target=_blank>" + bus['name'] + "</a></h3>"
-                        "<h5><img src=static/images/home.png style='max-width: 20px; max-height: 20px;'>  " + bus['location']['display_address'][0] + ", " + bus['location']['display_address'][1] + "</h5>"
-                        "<h5><img src=static/images/phone.png style='max-width: 20px; max-height: 20px;'> " + bus['display_phone'] + "</h5>"
+                        "<h5 style='color: red'>Closed Now</h5>"
+                        "<h5><img src=static/images/home.png style='max-width: 20px; max-height: 20px;'>  " +
+                        bus['location']['display_address'][0] + ", " + bus['location']['display_address'][1] + "</h5>"
+                        "<h5><img src=static/images/phone.png style='max-width: 20px; max-height: 20px;'> " +bus['display_phone'] + "</h5>"
                         "<h5><img src=static/images/cash-other.png style='max-width: 20px; max-height: 20px;'> " + str(bus['price']) + "</h5>"
                         "<h5><img src=static/images/rating.png style='max-width: 20px; max-height: 20px;'> " + str(bus['rating']) + "</h5>")
         }
+    if bus['is_closed'] == False:
+        temp = {
+            'lat': bus['coordinates']['latitude'],
+            'lng': bus['coordinates']['longitude'],
+            'infobox': ("<h3><a href=" + bus['url'] + " target=_blank>" + bus['name'] + "</a></h3>"
+                        "<h5 style='color: green'>Open Now</h5>"
+                        "<h5><img src=static/images/home.png style='max-width: 20px; max-height: 20px;'>  " +
+                        bus['location']['display_address'][0] + ", " + bus['location']['display_address'][1] + "</h5>"
+                        "<h5><img src=static/images/phone.png style='max-width: 20px; max-height: 20px;'> " +bus['display_phone'] + "</h5>"
+                        "<h5><img src=static/images/cash-other.png style='max-width: 20px; max-height: 20px;'> " + str(bus['price']) + "</h5>"
+                        "<h5><img src=static/images/rating.png style='max-width: 20px; max-height: 20px;'> " + str(bus['rating']) + "</h5>")
+        }
+    if 'price' in bus:
+        if bus['is_closed'] == False:
+            temp = {
+                'lat': bus['coordinates']['latitude'],
+                'lng': bus['coordinates']['longitude'],
+                'infobox': ("<h3><a href=" + bus['url'] + " target=_blank>" + bus['name'] + "</a></h3>"
+                            "<h5 style='color: green'>Open Now</h5>"
+                            "<h5><img src=static/images/home.png style='max-width: 20px; max-height: 20px;'>  " +
+                            bus['location']['display_address'][0] + ", " + bus['location']['display_address'][1] + "</h5>"
+                            "<h5><img src=static/images/phone.png style='max-width: 20px; max-height: 20px;'> " + bus['display_phone'] + "</h5>"
+                            "<h5><img src=static/images/cash-other.png style='max-width: 20px; max-height: 20px;'> " + str(bus['price']) + "</h5>"
+                            "<h5><img src=static/images/rating.png style='max-width: 20px; max-height: 20px;'> " + str(bus['rating']) + "</h5>")
+            }
+        if bus['is_closed'] == True:
+            temp = {
+                'lat': bus['coordinates']['latitude'],
+                'lng': bus['coordinates']['longitude'],
+                'infobox': ("<h3><a href=" + bus['url'] + " target=_blank>" + bus['name'] + "</a></h3>"
+                            "<h5 style='color: red'>Closed Now</h5>"
+                            "<h5><img src=static/images/home.png style='max-width: 20px; max-height: 20px;'>  " +
+                            bus['location']['display_address'][0] + ", " + bus['location']['display_address'][1] + "</h5>"
+                            "<h5><img src=static/images/phone.png style='max-width: 20px; max-height: 20px;'> " + bus['display_phone'] + "</h5>"
+                            "<h5><img src=static/images/cash-other.png style='max-width: 20px; max-height: 20px;'> " + str(bus['price']) + "</h5>"
+                            "<h5><img src=static/images/rating.png style='max-width: 20px; max-height: 20px;'> " + str(bus['rating']) + "</h5>")
+            }
     return temp
 
 def getResponse(userInfo):
