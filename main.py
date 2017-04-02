@@ -18,8 +18,10 @@ def hello_world():
     j = json.loads(r.text)
     global latitude
     latitude = j['latitude']
+    print(latitude)
     global longitude
     longitude = j['longitude']
+    print(longitude)
     return render_template('index.html')
 
 @app.route('/application.html')
