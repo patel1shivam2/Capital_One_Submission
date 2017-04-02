@@ -6,7 +6,6 @@
 .formEntry
 {
     position: absolute;
-    border: red dashed;
     top: 8%;
     left: 0px;
     right: 0px;
@@ -44,7 +43,6 @@
 {
     vertical-align: middle;
     position: absolute;
-    border: green dashed;
     left: 18%;
     width: 30%;
     height: 100%;
@@ -57,33 +55,33 @@
 #rightForm
 {
     position: absolute;
-    border: blue dashed;
     left: 49%;
     height: 100%;
+    width: 46%;
 }
 
 #deals
 {
-    border: orange dashed;
+    position: absolute;
     float: left;
 }
 
 #priceLevel
 {
-    border: purple dashed;
-    display: block;
     float: right;
+    position: absolute;
+    right: 0%;
+    top: 0%;
 }
 
 #leftPrices
 {
-    border: teal dashed;
     float: left;
 }
 
 #rightPrices
 {
-    border: salmon dashed;
+
     float: left;
 }
 
