@@ -114,8 +114,10 @@
 #subBut
 {
     position: absolute;
+    width: 35px;
+    height: 35px;
     right: 1%;
-    bottom: 1%;
+    bottom: 4%;
 }
 
 .textEntry
