@@ -2,15 +2,24 @@ from flask import Flask, render_template, request, redirect, url_for, Response
 import os, requests, json, pprint, jsonify
 from flask_googlemaps import GoogleMaps, Map, icons
 
-app = Flask(__name__)
-GoogleMaps(app, key="AIzaSyDHvkt3LljCyZ_WhFeys7NiGF9H6SCBzss")
+key = "AIzaSyDHvkt3LljCyZ_WhFeys7NiGF9H6SCBzss"
 
-latitude = 30.2672
-longitude = -97.7431
+app = Flask(__name__)
+GoogleMaps(app, key=key)
+
+latitude = 41.8781
+longitude = -87.6298
 
 @app.route('/')
 @app.route('/index.html', methods=['GET','POST'])
 def hello_world():
+    send_url = 'http://freegeoip.net/json'
+    r = requests.get(send_url)
+    j = json.loads(r.text)
+    global latitude
+    latitude = j['latitude']
+    global longitude
+    longitude = j['longitude']
     return render_template('index.html')
 
 @app.route('/application.html')

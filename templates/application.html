@@ -32,8 +32,20 @@
     <![endif]-->
 
 </head>
+<script>
+    function getLocation()
+    {
+        if(navigator.geolocation)
+        {
+            navigator.geolocation.getCurrentPosition(function(position)
+            {
+                console.log(position.coords.latitude);
+            })
+        }
+    }
+</script>
 
-<body>
+<body onload="getLocation()">
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
