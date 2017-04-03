@@ -252,6 +252,18 @@ def getReview(id):
     json_data = json.loads(resp.text)
     return json_data
 
+@app.errorhandler(500)
+def page_not_found(e):
+    error = 'The server is currently encountering some issues. Please try again later. 504 Response'
+    mymap = Map(
+        identifier="view-side",
+        # set of lat and long centers to the new global variables
+        lat=latitude,
+        lng=longitude,
+        style="height: 100%; width: 100%"
+    )
+    return render_template('application.html', mymap=mymap, error=error)
+
 #main run function of Flask
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 4000))
