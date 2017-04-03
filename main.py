@@ -177,8 +177,8 @@ def makeBox(bus):
                 'lat': bus['coordinates']['latitude'],
                 'lng': bus['coordinates']['longitude'],
                 'infobox': ("<h3><a href=" + bus['url'] + " target=_blank>" + bus['name'] + "</a></h3>"
-                                                                                            "<h5 style='color: red'>Closed Now</h5>"
-                                                                                            "<h5><img src=static/images/home.png style='max-width: 20px; max-height: 20px;'>  " +
+                            "<h5 style='color: red'>Closed Now</h5>"
+                            "<h5><img src=static/images/home.png style='max-width: 20px; max-height: 20px;'>  " +
                             bus['location']['display_address'][0] + ", " + "</h5>")
             }
         if bus['is_closed'] == False:
@@ -186,9 +186,9 @@ def makeBox(bus):
                 'lat': bus['coordinates']['latitude'],
                 'lng': bus['coordinates']['longitude'],
                 'infobox': ("<h3><a href=" + bus['url'] + " target=_blank>" + bus['name'] + "</a></h3>"
-                                                                                            "<h5 style='color: green'>Open Now</h5>"
-                                                                                            "<h5><img src=static/images/home.png style='max-width: 20px; max-height: 20px;'>  " +
-                            bus['location']['display_address'][0] + ", " + "</h5>")
+                "<h5 style='color: green'>Open Now</h5>"
+                "<h5><img src=static/images/home.png style='max-width: 20px; max-height: 20px;'>  " +
+                bus['location']['display_address'][0] + ", " + "</h5>")
             }
         if 'price' in bus and 'rating' in bus and 'display_phone' in bus:
             if bus['is_closed'] == False:
