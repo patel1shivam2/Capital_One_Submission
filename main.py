@@ -134,10 +134,7 @@ def makeBox(bus):
             'infobox': ("<h3><a href=" + bus['url'] + " target=_blank>" + bus['name'] + "</a></h3>"
                         "<h5 style='color: red'>Closed Now</h5>"
                         "<h5><img src=static/images/home.png style='max-width: 20px; max-height: 20px;'>  " +
-                        bus['location']['display_address'][0] + ", " + bus['location']['display_address'][1] + "</h5>"
-                        "<h5><img src=static/images/phone.png style='max-width: 20px; max-height: 20px;'> " +bus['display_phone'] + "</h5>"
-                        "<h5><img src=static/images/cash-other.png style='max-width: 20px; max-height: 20px;'> " + str(bus['price']) + "</h5>"
-                        "<h5><img src=static/images/rating.png style='max-width: 20px; max-height: 20px;'> " + str(bus['rating']) + "</h5>")
+                        bus['location']['display_address'][0] + ", " + bus['location']['display_address'][1] + "</h5>")
         }
     if bus['is_closed'] == False:
         temp = {
@@ -146,12 +143,9 @@ def makeBox(bus):
             'infobox': ("<h3><a href=" + bus['url'] + " target=_blank>" + bus['name'] + "</a></h3>"
                         "<h5 style='color: green'>Open Now</h5>"
                         "<h5><img src=static/images/home.png style='max-width: 20px; max-height: 20px;'>  " +
-                        bus['location']['display_address'][0] + ", " + bus['location']['display_address'][1] + "</h5>"
-                        "<h5><img src=static/images/phone.png style='max-width: 20px; max-height: 20px;'> " +bus['display_phone'] + "</h5>"
-                        "<h5><img src=static/images/cash-other.png style='max-width: 20px; max-height: 20px;'> " + str(bus['price']) + "</h5>"
-                        "<h5><img src=static/images/rating.png style='max-width: 20px; max-height: 20px;'> " + str(bus['rating']) + "</h5>")
+                        bus['location']['display_address'][0] + ", " + bus['location']['display_address'][1] + "</h5>")
         }
-    if 'price' in bus:
+    if 'price' in bus and 'rating' in bus and 'display_phone' in bus:
         if bus['is_closed'] == False:
             temp = {
                 'lat': bus['coordinates']['latitude'],
