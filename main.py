@@ -94,6 +94,17 @@ def performSearch():
         #new array to hold the different marker values and infobox data
         newMarkers = []
         #traversal through the JSON response from the YELP API
+        print(json_data)
+        mymap = Map(
+            identifier="view-side",
+            # set of lat and long centers to the new global variables
+            lat=latitude,
+            lng=longitude,
+            style="height: 100%; width: 100%"
+        )
+        error = 'Error in your search query. Please try again. Thank You.'
+        if 'error' in json_data:
+            return render_template('application.html', mymap=mymap, error=error)
         for bus in json_data['businesses']:
             #helper method called for simplification
             temp = makeBox(bus)

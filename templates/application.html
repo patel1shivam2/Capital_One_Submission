@@ -133,6 +133,7 @@
         {{mymap.html}}
     </div>
     <div id="resultsArea">
+        {{ error }}
         <div id="scrollingResults" style="overflow-x:hidden; overflow-y: scroll; height:100%; padding-top: 2%; border-bottom: 5px; padding-left: 2%;">
             {% for bus in results %}
             <div id="venue" style="border-bottom: groove; min-height: 180px; max-height: 180px;">
