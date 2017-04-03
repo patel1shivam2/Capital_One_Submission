@@ -65,7 +65,7 @@
 {
     position: absolute;
     float: left;
-    top: 85%;
+    top: 75%;
 }
 
 #sortText
@@ -100,7 +100,7 @@
     float: left;
     position: absolute;
     left: 0%;
-    bottom: 0%;
+    bottom: -5%;
 }
 
 #leftPrices
@@ -111,6 +111,7 @@
 #rightPrices
 {
     position: relative;
+    bottom: 10%;
     left: 5%;
     float: left;
 }
