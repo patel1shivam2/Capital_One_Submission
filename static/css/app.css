@@ -126,7 +126,8 @@
 {
     position: absolute;
     top: 29%;
-    bottom: 0%;
+    bottom: 3px;
+    left: 3px;
     width: 60%;
     max-width: 60%;
 }
