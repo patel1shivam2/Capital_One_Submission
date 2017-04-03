@@ -231,7 +231,6 @@ def getResponse(userInfo):
     url = 'https://api.yelp.com/v3/businesses/search'
     headers = {'Authorization': 'bearer %s' % access_token}
     resp = requests.get(url=url, params=userInfo, headers=headers)
-    print(resp)
     #JSON conversion of the data
     json_data = json.loads(resp.text)
     return json_data
@@ -253,19 +252,7 @@ def getReview(id):
     json_data = json.loads(resp.text)
     return json_data
 
-@app.errorhandler(500)
-def page_not_found(e):
-    error = 'We had trouble contacting the server. A 504 Error was returned to the Flask server. Please try again or ' \
-            'at a later time. Sorry for the inconvenience. Thank You'
-    mymap = Map(
-        identifier="view-side",
-        # set of lat and long centers to the new global variables
-        lat=latitude,
-        lng=longitude,
-        style="height: 100%; width: 100%"
-    )
-    return render_template('application.html', mymap=mymap, error=error)
-
 #main run function of Flask
 if __name__ == '__main__':
-    app.run()
+    port = int(os.environ.get("PORT", 4000))
+    app.run(host='0.0.0.0', port=port)
