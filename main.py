@@ -21,7 +21,6 @@ def hello_world():
     latitude = j['latitude']
     global longitude
     longitude = j['longitude']
-    print(j)
     return render_template('index.html')
 
 @app.route('/application.html')

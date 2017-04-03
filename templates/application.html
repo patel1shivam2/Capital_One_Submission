@@ -84,11 +84,11 @@
                     <div id="leftForm">
                         <div id="term" class="textEntry">
                             <div id="preBoxText"><p><strong>Cuisine:</strong></p></div>
-                            <div id ="sch"><input id="searchTerm" type="text" name="searchTerm" placeholder="Mexican or Chipotle" required></div>
+                            <div id ="sch"><input id="searchTerm" type="text" name="searchTerm" placeholder="Mexican, Italian, or Five Guys" required></div>
                         </div>
                         <div id="zip" class="textEntry">
                             <div id="preBoxText"><span><p><strong>Location:</strong></p></span></div>
-                            <div id ="sch"><input id="location" type="text" name="location" placeholder="My Address, Austin, TX, 73301" required> </div>
+                            <div id ="sch"><input id="location" type="text" name="location" placeholder="123 Apple St, Austin, TX, 73301" required> </div>
                         </div>
                         <div id="radNLim" class="textEntry">
                             <div id="radius" class="textEntry">
@@ -97,7 +97,7 @@
                             </div>
                             <div id="lim" class="textEntry">
                                 <div id="biggerBox2"><span><p><strong>Max Number of Businesses:</strong></p></span></div> 
-                                <div id ="smallerSch"><input id="maxNum" type="number" name="limit" placeholder="i.e. 10"></div>
+                                <div id ="smallerSch"><input id="maxNum" type="number" name="limit" placeholder="10"></div>
                             </div>
                         </div>
                     </div>
@@ -118,7 +118,19 @@
                                     <input type="checkbox" name="price2" value="2"> $$<br>
                                     <input type="checkbox" name="price4" value="4"> $$$$<br>
                                 </div>
-
+                            </div>
+                            <div id="sortFilter">
+                                <div id="sortText">
+                                    <h5>Sort By:&nbsp&nbsp</h5>
+                                </div>
+                                <div id="sortArea">
+                                    <select>
+                                      <option value="best_match">Best Match</option>
+                                      <option value="rating">Rating</option>
+                                      <option value="review_count">Review Count</option>
+                                      <option value="distance">Distance</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>

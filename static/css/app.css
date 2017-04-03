@@ -11,7 +11,7 @@
     right: 0px;
     width: 100%;
     max-width: 100%;
-    height: 20%;
+    height: 24%;
     max-height: 20%;
 }
 
@@ -50,6 +50,23 @@
     padding-left: 3px;
     padding-right: 3px;
     float: left;
+}
+
+#sortFilter
+{
+    float: left;
+    width: 50%;
+}
+
+#sortText
+{
+    float: left;
+}
+
+#sortArea
+{
+    float: right;
+    border: red dashed;
 }
 
 #rightForm
