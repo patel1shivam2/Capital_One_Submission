@@ -13,6 +13,10 @@ longitude = -87.6298
 @app.route('/')
 @app.route('/index.html', methods=['GET','POST'])
 def hello_world():
+    return render_template('index.html')
+
+@app.route('/application.html')
+def secondPage():
     ip = request.headers.get('X-Forwarded-For', request.remote_addr)
     url = 'http://freegeoip.net/json/' + ip
     r = requests.get(url)
@@ -21,12 +25,6 @@ def hello_world():
     latitude = j['latitude']
     global longitude
     longitude = j['longitude']
-    return render_template('index.html')
-
-@app.route('/application.html')
-def secondPage():
-    global latitude
-    global longitude
     mymap = Map(
         identifier="view-side",
         lat=latitude,
