@@ -61,6 +61,13 @@
     right: 7%;
 }
 
+#timeOptions
+{
+    position: absolute;
+    float: left;
+    top: 85%;
+}
+
 #sortText
 {
     float: left;
