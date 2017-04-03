@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request, redirect, url_for, Response
-import os, requests, json, pprint, jsonify
-from flask_googlemaps import GoogleMaps, Map, icons
+from flask import Flask, render_template, request
+import os, requests, json, pprint
+from flask_googlemaps import GoogleMaps, Map
 
 key = "AIzaSyDHvkt3LljCyZ_WhFeys7NiGF9H6SCBzss"
 
@@ -17,25 +17,33 @@ def hello_world():
 
 @app.route('/application.html')
 def secondPage():
+    #request location of user on the call for the application page
     ip = request.headers.get('X-Forwarded-For', request.remote_addr)
     url = 'http://freegeoip.net/json/' + ip
     r = requests.get(url)
+    #convert response to JSON variable
     j = json.loads(r.text)
+    #reset the global variables to the values retrieved by the API Request
     global latitude
     latitude = j['latitude']
     global longitude
     longitude = j['longitude']
+    #Initialization of the Map Object
     mymap = Map(
         identifier="view-side",
+        #set of lat and long centers to the new global variables
         lat=latitude,
         lng=longitude,
         style="height: 100%; width: 100%"
     )
+    #return application page with the map parameter for rendering using Jinja2
     return render_template('application.html', mymap=mymap)
 
 @app.route('/application.html', methods=['POST'])
 def performSearch():
+    #ensures method was called through POST request
     if (request.method == 'POST'):
+        #retainment of the different form variables
         term = request.form.get('searchTerm')
         loc = request.form.get('location')
         rad = request.form.get('radius')
@@ -46,7 +54,10 @@ def performSearch():
         double = request.form.get('price2')
         triple = request.form.get('price3')
         four = request.form.get('price4')
+        #variable holder for the price constraints
         price = ""
+        #series of conditional statements to create the proper string to represent the users
+        #price level restriction
         if single != None:
             price += str(str(1) + ",")
         if double != None:
@@ -59,18 +70,18 @@ def performSearch():
             price = price[:-1]
         if len(price) == 0:
             price = "1,2,3,4"
-
+        #checks radius element from form
+        #ensures no error can be made through YELP API request
         if rad == '':
             rad = str(40000)
         else:
             rad = str(rad * 1609)
-
+        #max case
         if int(rad) > 40000:
             rad = str(40000)
-
         if lim == '':
             lim = str(50)
-
+        #establishment of API Request Parameters from formatted form elements
         userInfo = {
             'term': term,
             'location': loc,
@@ -80,7 +91,9 @@ def performSearch():
             'price': price,
             'sort_by': sort
         }
+        #helper method called to ease code statements
         json_data = getResponse(userInfo)
+        #new array
         newMarkers = []
         pp = pprint.PrettyPrinter(indent=2)
         pp.pprint(json_data)
