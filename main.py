@@ -43,6 +43,7 @@ def performSearch():
         rad = request.form.get('radius')
         lim = request.form.get('limit')
         open = request.form.get('open')
+        sort = request.form.get('sortBy')
         single = request.form.get('price1')
         double = request.form.get('price2')
         triple = request.form.get('price3')
@@ -78,7 +79,8 @@ def performSearch():
             'radius_filter': rad,
             'limit': lim,
             'open_now': open,
-            'price': price
+            'price': price,
+            'sort_by': sort
         }
         json_data = getResponse(userInfo)
         newMarkers = []

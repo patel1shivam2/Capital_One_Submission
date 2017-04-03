@@ -58,7 +58,7 @@
     width: 35%;
     position: absolute;
     top: 0%;
-    right: 0%;
+    right: 7%;
 }
 
 #sortText
@@ -68,8 +68,10 @@
 
 #sortArea
 {
+    position: absolute;
+    top: 20%;
+    left: 35%;
     float: right;
-    border: red dashed;
 }
 
 #rightForm
@@ -91,7 +93,7 @@
     float: left;
     position: absolute;
     left: 0%;
-    bottom: 1%;
+    bottom: 0%;
 }
 
 #leftPrices
@@ -164,13 +166,14 @@
 #zip
 {
     position: absolute;
-    top: 33%;
+    top: 40%;
 }
 
 #radNLim
 {
     position: absolute;
-    top: 67%;
+    top: 80%;
+    bottom: 0%;
     padding-bottom: 1%;
 }
 
