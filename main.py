@@ -127,37 +127,7 @@ def performSearch():
 #helper method that places the information within the specific infobox
 def makeBox(bus):
     #series of conditional statements to ensure no error occurs in the application
-    if bus['is_closed'] == True:
-        temp = {
-            'lat': bus['coordinates']['latitude'],
-            'lng': bus['coordinates']['longitude'],
-            'infobox': ("<h3><a href=" + bus['url'] + " target=_blank>" + bus['name'] + "</a></h3>"
-                        "<h5 style='color: red'>Closed Now</h5>"
-                        "<h5><img src=static/images/home.png style='max-width: 20px; max-height: 20px;'>  " +
-                        bus['location']['display_address'][0] + ", " + bus['location']['display_address'][1] + "</h5>")
-        }
-    if bus['is_closed'] == False:
-        temp = {
-            'lat': bus['coordinates']['latitude'],
-            'lng': bus['coordinates']['longitude'],
-            'infobox': ("<h3><a href=" + bus['url'] + " target=_blank>" + bus['name'] + "</a></h3>"
-                        "<h5 style='color: green'>Open Now</h5>"
-                        "<h5><img src=static/images/home.png style='max-width: 20px; max-height: 20px;'>  " +
-                        bus['location']['display_address'][0] + ", " + bus['location']['display_address'][1] + "</h5>")
-        }
-    if 'price' in bus and 'rating' in bus and 'display_phone' in bus:
-        if bus['is_closed'] == False:
-            temp = {
-                'lat': bus['coordinates']['latitude'],
-                'lng': bus['coordinates']['longitude'],
-                'infobox': ("<h3><a href=" + bus['url'] + " target=_blank>" + bus['name'] + "</a></h3>"
-                            "<h5 style='color: green'>Open Now</h5>"
-                            "<h5><img src=static/images/home.png style='max-width: 20px; max-height: 20px;'>  " +
-                            bus['location']['display_address'][0] + ", " + bus['location']['display_address'][1] + "</h5>"
-                            "<h5><img src=static/images/phone.png style='max-width: 20px; max-height: 20px;'> " + bus['display_phone'] + "</h5>"
-                            "<h5><img src=static/images/cash-other.png style='max-width: 20px; max-height: 20px;'> " + str(bus['price']) + "</h5>"
-                            "<h5><img src=static/images/rating.png style='max-width: 20px; max-height: 20px;'> " + str(bus['rating']) + "</h5>")
-            }
+    if 2 <= len(bus['location']['display_address']):
         if bus['is_closed'] == True:
             temp = {
                 'lat': bus['coordinates']['latitude'],
@@ -165,11 +135,84 @@ def makeBox(bus):
                 'infobox': ("<h3><a href=" + bus['url'] + " target=_blank>" + bus['name'] + "</a></h3>"
                             "<h5 style='color: red'>Closed Now</h5>"
                             "<h5><img src=static/images/home.png style='max-width: 20px; max-height: 20px;'>  " +
-                            bus['location']['display_address'][0] + ", " + bus['location']['display_address'][1] + "</h5>"
-                            "<h5><img src=static/images/phone.png style='max-width: 20px; max-height: 20px;'> " + bus['display_phone'] + "</h5>"
-                            "<h5><img src=static/images/cash-other.png style='max-width: 20px; max-height: 20px;'> " + str(bus['price']) + "</h5>"
-                            "<h5><img src=static/images/rating.png style='max-width: 20px; max-height: 20px;'> " + str(bus['rating']) + "</h5>")
+                            bus['location']['display_address'][0] + ", " + bus['location']['display_address'][1] + "</h5>")
             }
+        if bus['is_closed'] == False:
+            temp = {
+                'lat': bus['coordinates']['latitude'],
+                'lng': bus['coordinates']['longitude'],
+                'infobox': ("<h3><a href=" + bus['url'] + " target=_blank>" + bus['name'] + "</a></h3>"
+                            "<h5 style='color: green'>Open Now</h5>"
+                            "<h5><img src=static/images/home.png style='max-width: 20px; max-height: 20px;'>  " +
+                            bus['location']['display_address'][0] + ", " + bus['location']['display_address'][1] + "</h5>")
+            }
+        if 'price' in bus and 'rating' in bus and 'display_phone' in bus:
+            if bus['is_closed'] == False:
+                temp = {
+                    'lat': bus['coordinates']['latitude'],
+                    'lng': bus['coordinates']['longitude'],
+                    'infobox': ("<h3><a href=" + bus['url'] + " target=_blank>" + bus['name'] + "</a></h3>"
+                                "<h5 style='color: green'>Open Now</h5>"
+                                "<h5><img src=static/images/home.png style='max-width: 20px; max-height: 20px;'>  " +
+                                bus['location']['display_address'][0] + ", " + bus['location']['display_address'][1] + "</h5>"
+                                "<h5><img src=static/images/phone.png style='max-width: 20px; max-height: 20px;'> " + bus['display_phone'] + "</h5>"
+                                "<h5><img src=static/images/cash-other.png style='max-width: 20px; max-height: 20px;'> " + str(bus['price']) + "</h5>"
+                                "<h5><img src=static/images/rating.png style='max-width: 20px; max-height: 20px;'> " + str(bus['rating']) + "</h5>")
+                }
+            if bus['is_closed'] == True:
+                temp = {
+                    'lat': bus['coordinates']['latitude'],
+                    'lng': bus['coordinates']['longitude'],
+                    'infobox': ("<h3><a href=" + bus['url'] + " target=_blank>" + bus['name'] + "</a></h3>"
+                                "<h5 style='color: red'>Closed Now</h5>"
+                                "<h5><img src=static/images/home.png style='max-width: 20px; max-height: 20px;'>  " +
+                                bus['location']['display_address'][0] + ", " + bus['location']['display_address'][1] + "</h5>"
+                                "<h5><img src=static/images/phone.png style='max-width: 20px; max-height: 20px;'> " + bus['display_phone'] + "</h5>"
+                                "<h5><img src=static/images/cash-other.png style='max-width: 20px; max-height: 20px;'> " + str(bus['price']) + "</h5>"
+                                "<h5><img src=static/images/rating.png style='max-width: 20px; max-height: 20px;'> " + str(bus['rating']) + "</h5>")
+                }
+    else:
+        if bus['is_closed'] == True:
+            temp = {
+                'lat': bus['coordinates']['latitude'],
+                'lng': bus['coordinates']['longitude'],
+                'infobox': ("<h3><a href=" + bus['url'] + " target=_blank>" + bus['name'] + "</a></h3>"
+                                                                                            "<h5 style='color: red'>Closed Now</h5>"
+                                                                                            "<h5><img src=static/images/home.png style='max-width: 20px; max-height: 20px;'>  " +
+                            bus['location']['display_address'][0] + ", " + "</h5>")
+            }
+        if bus['is_closed'] == False:
+            temp = {
+                'lat': bus['coordinates']['latitude'],
+                'lng': bus['coordinates']['longitude'],
+                'infobox': ("<h3><a href=" + bus['url'] + " target=_blank>" + bus['name'] + "</a></h3>"
+                                                                                            "<h5 style='color: green'>Open Now</h5>"
+                                                                                            "<h5><img src=static/images/home.png style='max-width: 20px; max-height: 20px;'>  " +
+                            bus['location']['display_address'][0] + ", " + "</h5>")
+            }
+        if 'price' in bus and 'rating' in bus and 'display_phone' in bus:
+            if bus['is_closed'] == False:
+                temp = {
+                    'lat': bus['coordinates']['latitude'],
+                    'lng': bus['coordinates']['longitude'],
+                    'infobox': ("<h3><a href=" + bus['url'] + " target=_blank>" + bus['name'] + "</a></h3>"
+                                "<h5 style='color: green'>Open Now</h5>"
+                                "<h5><img src=static/images/home.png style='max-width: 20px; max-height: 20px;'>  " +bus['location']['display_address'][0] + "</h5>"
+                                "<h5><img src=static/images/phone.png style='max-width: 20px; max-height: 20px;'> " +bus['display_phone'] + "</h5>"
+                                "<h5><img src=static/images/cash-other.png style='max-width: 20px; max-height: 20px;'> " + str(bus['price']) + "</h5>"
+                                "<h5><img src=static/images/rating.png style='max-width: 20px; max-height: 20px;'> " + str(bus['rating']) + "</h5>")
+                }
+            if bus['is_closed'] == True:
+                temp = {
+                    'lat': bus['coordinates']['latitude'],
+                    'lng': bus['coordinates']['longitude'],
+                    'infobox': ("<h3><a href=" + bus['url'] + " target=_blank>" + bus['name'] + "</a></h3>"
+                                "<h5 style='color: red'>Closed Now</h5>"
+                                "<h5><img src=static/images/home.png style='max-width: 20px; max-height: 20px;'>  " + bus['location']['display_address'][0] + "</h5>"
+                                "<h5><img src=static/images/phone.png style='max-width: 20px; max-height: 20px;'> " + bus['display_phone'] + "</h5>"
+                                "<h5><img src=static/images/cash-other.png style='max-width: 20px; max-height: 20px;'> " + str(bus['price']) + "</h5>"
+                                "<h5><img src=static/images/rating.png style='max-width: 20px; max-height: 20px;'> " + str(bus['rating']) + "</h5>")
+                }
     #return of the infobox information
     return temp
 
@@ -182,6 +225,7 @@ def getResponse(userInfo):
             'client_id': app_id,
             'client_secret': app_secret}
     token = requests.post('https://api.yelp.com/oauth2/token', data=data)
+    print(token)
     access_token = token.json()['access_token']
     #YELP API Search URL
     url = 'https://api.yelp.com/v3/businesses/search'
