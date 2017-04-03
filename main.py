@@ -2,19 +2,17 @@ from flask import Flask, render_template, request
 import os, requests, json, pprint
 from flask_googlemaps import GoogleMaps, Map
 
+#Google Maps API Key
 key = "AIzaSyDHvkt3LljCyZ_WhFeys7NiGF9H6SCBzss"
 
 app = Flask(__name__)
 GoogleMaps(app, key=key)
 
+#default global values in case of error in application
 latitude = 41.8781
 longitude = -87.6298
 
 @app.route('/')
-@app.route('/index.html', methods=['GET','POST'])
-def hello_world():
-    return render_template('index.html')
-
 @app.route('/application.html')
 def secondPage():
     #request location of user on the call for the application page
@@ -93,38 +91,31 @@ def performSearch():
         }
         #helper method called to ease code statements
         json_data = getResponse(userInfo)
-        #new array
+        #new array to hold the different marker values and infobox data
         newMarkers = []
-        pp = pprint.PrettyPrinter(indent=2)
-        pp.pprint(json_data)
+        #traversal through the JSON response from the YELP API
         for bus in json_data['businesses']:
+            #helper method called for simplification
             temp = makeBox(bus)
+            #append infobox information to the marker array
             newMarkers.append(temp)
         mymap = Map(
             identifier="view-side",
             zoom=11,
+            #set the latitude and longitude of the Map to the coordinates sent back from YELP
             lat=json_data['region']['center']['latitude'],
             lng=json_data['region']['center']['longitude'],
+            #set of the marker values to the accumulated data structure
             markers=newMarkers,
             style="height: 100%; width: 100%"
         )
+        #return of the rendered template with mymap variable for Map Rendering
+        #and the JSON data file to display the different
         return render_template('application.html', mymap=mymap, results=json_data['businesses'])
 
-def getReview(id):
-    app_id = 'H-HZgNDkCrVwWodMt-n8KA'
-    app_secret = '5BXCx3WWi0uIhjPy6s1DehHasBxYnTgbFSnoDv210B656x7uMmUiy8JSGrmNp9mX'
-    data = {'grant_type': 'client_credentials',
-            'client_id': app_id,
-            'client_secret': app_secret}
-    token = requests.post('https://api.yelp.com/oauth2/token', data=data)
-    access_token = token.json()['access_token']
-    url = "https://api.yelp.com/v3/businesses/" + id + "/reviews"
-    headers = {'Authorization': 'bearer %s' % access_token}
-    resp = requests.get(url=url, headers=headers)
-    json_data = json.loads(resp.text)
-    return json_data
-
+#helper method that places the information within the specific infobox
 def makeBox(bus):
+    #series of conditional statements to ensure no error occurs in the application
     if bus['is_closed'] == True:
         temp = {
             'lat': bus['coordinates']['latitude'],
@@ -174,9 +165,12 @@ def makeBox(bus):
                             "<h5><img src=static/images/cash-other.png style='max-width: 20px; max-height: 20px;'> " + str(bus['price']) + "</h5>"
                             "<h5><img src=static/images/rating.png style='max-width: 20px; max-height: 20px;'> " + str(bus['rating']) + "</h5>")
             }
+    #return of the infobox information
     return temp
 
+#helper method that gets the data from the YELP API
 def getResponse(userInfo):
+    #information necessary to make YELP API Request
     app_id = 'H-HZgNDkCrVwWodMt-n8KA'
     app_secret = '5BXCx3WWi0uIhjPy6s1DehHasBxYnTgbFSnoDv210B656x7uMmUiy8JSGrmNp9mX'
     data = {'grant_type': 'client_credentials',
@@ -184,13 +178,32 @@ def getResponse(userInfo):
             'client_secret': app_secret}
     token = requests.post('https://api.yelp.com/oauth2/token', data=data)
     access_token = token.json()['access_token']
+    #YELP API Search URL
     url = 'https://api.yelp.com/v3/businesses/search'
     headers = {'Authorization': 'bearer %s' % access_token}
     resp = requests.get(url=url, params=userInfo, headers=headers)
+    #JSON conversion of the data
     json_data = json.loads(resp.text)
     return json_data
 
+#former helper that I used to implement to request the Review for each business in the Response from Yelp
+def getReview(id):
+    #necessary information to make API Request through YELP
+    app_id = 'H-HZgNDkCrVwWodMt-n8KA'
+    app_secret = '5BXCx3WWi0uIhjPy6s1DehHasBxYnTgbFSnoDv210B656x7uMmUiy8JSGrmNp9mX'
+    data = {'grant_type': 'client_credentials',
+            'client_id': app_id,
+            'client_secret': app_secret}
+    token = requests.post('https://api.yelp.com/oauth2/token', data=data)
+    access_token = token.json()['access_token']
+    #API URL
+    url = "https://api.yelp.com/v3/businesses/" + id + "/reviews"
+    headers = {'Authorization': 'bearer %s' % access_token}
+    resp = requests.get(url=url, headers=headers)
+    json_data = json.loads(resp.text)
+    return json_data
 
+#main run function of Flask
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 4000))
     app.run(host='0.0.0.0', port=port)
