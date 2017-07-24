@@ -1,6 +1,6 @@
 # Capital One Submission - Shivam Patel - University of Texas at Austin
 
-[Link to Web Application](http://shivamcapitalone.herokuapp.com/)
+[Link to Web Application](http://yelpmeout.herokuapp.com/)
 
 This web application serves to enhance user experience in searching and finding a restaurant or specific experience using the YELP API.
 The web application has an intuitive user interface that allows users to enter their search criteria 
